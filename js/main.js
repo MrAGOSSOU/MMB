@@ -1,133 +1,114 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // Sticky Header & Scroll reveal
-  const header = document.querySelector('.site-header');
-  const fadeElements = document.querySelectorAll('.fade-up');
-  
-  const handleScroll = () => {
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
 
-    fadeElements.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 50) {
-        el.classList.add('visible');
-      }
+// Smooth Scroll & Lenis Setup
+// For the sake of simplicity without external dependencies, we implement basic smooth scroll and observers.
+// In a real env, import Lenis.
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Mobile Menu
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  
+  if(menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      menuToggle.textContent = mobileMenu.classList.contains('open') ? 'FERMER' : 'MENU';
     });
+  }
+
+  // Navbar background on scroll
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Reveal Animations
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.15
   };
 
-  window.addEventListener('scroll', handleScroll);
-  handleScroll(); // Init on load
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
 
-  // Mobile Menu
-  const menuToggle = document.querySelector('.mobile-menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
+  document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+  });
 
-  if (menuToggle && navLinks) {
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      navLinks.classList.toggle('active');
+  // Parallax Images
+  const pImages = document.querySelectorAll('.parallax-img');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    pImages.forEach(img => {
+      const speed = img.getAttribute('data-speed') || 0.1;
+      img.style.transform = `translateY(${y * speed}px)`;
+    });
+  });
+
+  // Timeline Progress
+  const timeline = document.querySelector('.timeline');
+  const progress = document.querySelector('.timeline-progress');
+  if(timeline && progress) {
+    window.addEventListener('scroll', () => {
+      const rect = timeline.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      if(rect.top < windowHeight && rect.bottom > 0) {
+        let percentage = (windowHeight - rect.top) / (rect.height + windowHeight) * 100;
+        percentage = Math.max(0, Math.min(100, percentage));
+        progress.style.height = `${percentage}%`;
+      }
     });
   }
 
   // FAQ Accordion
   const faqItems = document.querySelectorAll('.faq-item');
   faqItems.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    const answer = item.querySelector('.faq-answer');
-    
-    if (question && answer) {
-      question.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
-        
-        // Close all
-        faqItems.forEach(faq => {
-          faq.classList.remove('active');
-          faq.querySelector('.faq-answer').style.maxHeight = null;
-        });
-
-        // Toggle current
-        if (!isActive) {
-          item.classList.add('active');
-          answer.style.maxHeight = answer.scrollHeight + 'px';
-        }
-      });
-    }
+    const q = item.querySelector('.faq-q');
+    q.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+      faqItems.forEach(i => i.classList.remove('active'));
+      if(!isActive) item.classList.add('active');
+    });
   });
 
-  // Portfolio Filters
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-  if (filterBtns.length > 0 && portfolioItems.length > 0) {
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Update active class
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filterValue = btn.getAttribute('data-filter');
-
-        // Filter items
-        portfolioItems.forEach(item => {
-          const category = item.getAttribute('data-category');
-          if (filterValue === 'all' || category === filterValue) {
-            item.style.display = 'block';
-            setTimeout(() => {
-              item.style.opacity = '1';
-              item.style.transform = 'scale(1)';
-            }, 50);
-          } else {
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-              item.style.display = 'none';
-            }, 400);
-          }
-        });
-      });
+  // Custom Cursor
+  const cursorDot = document.querySelector('.cursor-dot');
+  const cursorRing = document.querySelector('.cursor-ring');
+  
+  if(cursorDot && cursorRing && matchMedia('(pointer:fine)').matches) {
+    let mouseX = 0;
+    let mouseY = 0;
+    let ringX = 0;
+    let ringY = 0;
+    
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      
+      cursorDot.style.left = mouseX + 'px';
+      cursorDot.style.top = mouseY + 'px';
     });
-  }
-
-  // Lightbox
-  const lightbox = document.getElementById('lightbox');
-  if (lightbox) {
-    const lightboxImg = lightbox.querySelector('.lightbox-img');
-    const lightboxCaption = lightbox.querySelector('.lightbox-caption');
-    const lightboxClose = lightbox.querySelector('.lightbox-close');
-
-    // Open Lightbox
-    portfolioItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const img = item.querySelector('img');
-        const caption = item.querySelector('h3');
-        
-        if (img && lightboxImg) {
-          lightboxImg.src = img.src;
-          lightboxImg.alt = img.alt;
-          if (caption && lightboxCaption) {
-            // Using textContent for security
-            lightboxCaption.textContent = caption.textContent;
-          }
-          lightbox.classList.add('active');
-        }
-      });
-    });
-
-    // Close Lightbox
-    if (lightboxClose) {
-      lightboxClose.addEventListener('click', () => {
-        lightbox.classList.remove('active');
-      });
-    }
-
-    // Close on background click
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
-        lightbox.classList.remove('active');
-      }
-    });
+    
+    const renderCursor = () => {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top = ringY + 'px';
+      
+      requestAnimationFrame(renderCursor);
+    };
+    
+    requestAnimationFrame(renderCursor);
   }
 });
