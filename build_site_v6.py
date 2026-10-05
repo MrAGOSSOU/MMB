@@ -1457,12 +1457,12 @@ html_content = """<!DOCTYPE html>
           </div>
         </div>
                 <div class="savoir-img-wrap reveal" id="savoir-fader" style="position: relative; height: 800px; border-radius: 1rem; overflow: hidden;">
-          <img src="Image/Autres../30af9e8b28b889719b75a378cf36a958.jpg" class="savoir-img parallax-img fade-img active" data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 1; transition: opacity 0.8s ease;">
-          <img src="Image/Autres../415aa88df9f7460bd2f377ea8b50adc5.jpg" class="savoir-img parallax-img fade-img " data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 0.8s ease;">
-          <img src="Image/Autres../50f0d86238313db7515d854b8b6307b7.jpg" class="savoir-img parallax-img fade-img " data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 0.8s ease;">
-          <img src="Image/Autres../6314c1a8f4a29acfe488645eb605eba5.jpg" class="savoir-img parallax-img fade-img " data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 0.8s ease;">
-          <img src="Image/Autres../67644d0c557ce1fe318e5a42877c40cd.jpg" class="savoir-img parallax-img fade-img " data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 0.8s ease;">
-          <img src="Image/Autres../ab8f039197ad7b740125543be97870d4.jpg" class="savoir-img parallax-img fade-img " data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 0.8s ease;">
+          <img src="Image/Autres/30af9e8b28b889719b75a378cf36a958.jpg" class="savoir-img parallax-img fade-img active" data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 1; transition: opacity 0.8s ease;">
+          <img src="Image/Autres/415aa88df9f7460bd2f377ea8b50adc5.jpg" class="savoir-img parallax-img fade-img " data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 0.8s ease;">
+          <img src="Image/Autres/50f0d86238313db7515d854b8b6307b7.jpg" class="savoir-img parallax-img fade-img " data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 0.8s ease;">
+          <img src="Image/Autres/6314c1a8f4a29acfe488645eb605eba5.jpg" class="savoir-img parallax-img fade-img " data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 0.8s ease;">
+          <img src="Image/Autres/67644d0c557ce1fe318e5a42877c40cd.jpg" class="savoir-img parallax-img fade-img " data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 0.8s ease;">
+          <img src="Image/Autres/ab8f039197ad7b740125543be97870d4.jpg" class="savoir-img parallax-img fade-img " data-speed="0.1" style="position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity: 0; transition: opacity 0.8s ease;">
         </div>
       </div>
     </section>
